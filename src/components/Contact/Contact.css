@@ -1,0 +1,168 @@
+.contact-form{
+    padding: 0 3rem 0 3rem;
+    display: flex;
+    height: 80vh;
+    margin-top: 4rem;
+      /* scroll */
+  padding-top: 3rem;
+  background: black !important;
+}
+
+.c-left{
+    text-align: center !important;
+    padding-top: 25px;
+    color: rgb(255, 0, 0) !important;
+}
+
+.c-right{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    flex: 1;
+}
+
+.c-right>form
+{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    
+}
+
+.c-right .user{
+    width: 24rem;
+    height: 3rem;
+    padding: 0.3em;
+    outline: none;
+    border: 2px solid rgb(255, 0, 0);
+    border-radius: 0px;
+    font-size: 19px;
+    color: white;
+    background: black !important;
+}
+
+.c-right .user:hover{
+    box-shadow: 0 0 15px rgb(255, 0, 0);
+}
+
+input{
+    background-color: black !important;
+    color: white !important;
+}
+textarea{
+    height: 5rem!important;
+    background: black !important;
+    color: white !important;
+}
+
+.done{
+    font-size: 19px;
+    color: rgb(255, 0, 0);
+}
+.not-done{
+    font-size: 19px;
+    color: red;
+}
+
+.c-blur1{
+    top: 1rem;
+    left: 8rem;
+}
+
+@media screen and (max-width: 480px) {
+    .contact-form{
+        padding: 0;
+        flex-direction: column;
+        gap: 5rem;
+        height: 40rem;
+    }
+    .c-right .user{
+        width: 16rem;
+    }
+
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.button {
+  animation: pulse 2s infinite;
+}
+
+/* Social media icons styling - adjusted vertical alignment */
+.contact-social-icons {
+    font-size: 1.5em !important;
+    padding: 0 !important;
+    opacity: 1 !important;
+    border-radius: 0 !important;
+    transition: all 0.3s ease-in-out !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 2px solid rgb(255, 0, 0) !important;
+    background: transparent !important;
+    width: 50px !important;
+    height: 50px !important;
+    position: relative !important;
+}
+
+/* Center the icons perfectly with adjusted position */
+.contact-social-icons svg,
+.contact-social-icons i {
+    color: white !important;
+    width: 25px !important;
+    height: 25px !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    fill: white !important;
+}
+
+.contact-social-icons:hover {
+    transform: scale(1.1) !important;
+    color: #ff0000 !important;
+    box-shadow: 0 0 15px #ff0000;
+}
+
+.contact-social-icons:hover svg,
+.contact-social-icons:hover i {
+    color: #ff0000 !important;
+    fill: #ff0000 !important;
+}
+
+/* Button styling */
+.button {
+    padding: 10px 20px !important;
+    background: transparent !important;
+    border: 2px solid rgb(255, 0, 0) !important;
+    border-radius: 0 !important;
+    color: white !important;
+    transition: all 0.3s ease !important;
+}
+
+.button:hover {
+    background: rgba(255, 0, 0, 0.1) !important;
+    box-shadow: 0 0 15px rgb(255, 0, 0) !important;
+}
+
+/* Contact social links container */
+.contact-social-links {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    margin-top: 30px !important;
+    list-style: none !important;
+    padding: 0 !important;
+}
