@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function ResumeAdmin() {
   const navigate = useNavigate();
   const [newResume, setNewResume] = useState(null);
-  const [currentResumeName, setCurrentResumeName] = useState("Updated_Yodice_Alexander_Resume_November2023.pdf");
+  // const [currentResumeName, setCurrentResumeName] = useState("Updated_Yodice_Alexander_Resume_November2023.pdf");
 
   const handleResumeUpload = (e) => {
     const file = e.target.files[0];
@@ -38,7 +38,7 @@ function ResumeAdmin() {
       <Form className="admin-form">
         <div className="current-resume mb-4">
           <h3 className="text-white mb-3">Current Resume</h3>
-          <p className="text-white">{currentResumeName}</p>
+          <p className="text-white">{/* currentResumeName */}</p>
         </div>
 
         <Form.Group className="mb-4">

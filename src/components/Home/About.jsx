@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import LaptopImg from "../../assets/home-main.svg";
-import Particle from "../Particle";  // Corrected the path here
+// import LaptopImg from "../../assets/home-main.svg";
+// import Particle from "../Particle";
 import {
   AiFillGithub,
   AiOutlineTwitter,
