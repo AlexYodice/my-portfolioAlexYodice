@@ -8,7 +8,6 @@ import {
   DiReact,
   DiNodejs,
   DiEclipse,
-  DiIntellij,
   DiMsqlServer,
   DiApple,
 } from "react-icons/di";

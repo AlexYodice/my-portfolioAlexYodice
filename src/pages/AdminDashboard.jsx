@@ -83,19 +83,6 @@ function AdminDashboard() {
     localStorage.setItem('portfolioProjects', JSON.stringify(updatedProjects));
   };
 
-  const handleDuplicateProject = (project) => {
-    const newId = Math.max(...existingProjects.map(p => p.id), 0) + 1;
-    const duplicatedProject = {
-      ...project,
-      id: newId,
-      title: `${project.title} (Copy)`
-    };
-    
-    const updatedProjects = [...existingProjects, duplicatedProject];
-    setExistingProjects(updatedProjects);
-    localStorage.setItem('portfolioProjects', JSON.stringify(updatedProjects));
-  };
-
   const handleSave = () => {
     localStorage.setItem('portfolioProjects', JSON.stringify(existingProjects));
     navigate('/project');
