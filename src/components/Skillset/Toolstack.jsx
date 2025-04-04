@@ -1,26 +1,26 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import {
-  DiWindows,
-  DiEclipse,
-  DiIntellij,
-  DiApple,
-} from "react-icons/di";
+import { SiPostman, SiVercel, SiNetlify, SiGithub } from "react-icons/si";
+import { FaCode } from "react-icons/fa";
 
 function Toolstack() {
   return (
-    <Row style={{ justifyContent: "center", paddingBottom: "50px", marginTop: "50px" }}>
+    <Row style={{ justifyContent: "center", paddingBottom: "50px" }}>
       <Col xs={4} md={2} className="tech-icons">
-        <DiWindows />
+        <FaCode />
+        <h5>VS Code</h5>
       </Col>
       <Col xs={4} md={2} className="tech-icons">
-        <DiEclipse />
+        <SiPostman />
       </Col>
       <Col xs={4} md={2} className="tech-icons">
-        <DiIntellij />
+        <SiVercel />
       </Col>
       <Col xs={4} md={2} className="tech-icons">
-        <DiApple />
+        <SiNetlify />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <SiGithub />
       </Col>
     </Row>
   );

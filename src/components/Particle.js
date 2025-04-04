@@ -1,11 +1,17 @@
 import React from "react";
 import Particles from "react-tsparticles";
+import { loadFull } from "tsparticles";
 
 function Particle() {
+  const particlesInit = async (main) => {
+    await loadFull(main);
+  };
+
   return (
     <Particles
       id="tsparticles"
-      params={{
+      init={particlesInit}
+      options={{
         particles: {
           number: {
             value: 160,
@@ -53,3 +59,5 @@ function Particle() {
 }
 
 export default Particle;
+
+

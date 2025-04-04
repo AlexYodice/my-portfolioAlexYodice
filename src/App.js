@@ -19,6 +19,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Preloader from "./components/PreLoader"
 import ScrollToTop from "./components/ScrollToTop"
+import Skillset from "./components/Skillset/Skillset";
 
 import "./App.css";
 import "./style.css";
@@ -43,7 +44,7 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/skillset" element={<Skill />} />
+          <Route path="/skillset" element={<Skillset />} />
           <Route path="/project" element={<Project />} />
           <Route path="/resume" element={<Resume />} />
           <Route path="/contact" element={<Contact />} />

@@ -2,26 +2,22 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import {
   DiJavascript1,
-  DiJava,
-  DiCss3,
-  DiWindows,  
   DiReact,
   DiNodejs,
-  DiEclipse,
-  DiMsqlServer,
-  DiApple,
+  DiMongodb,
+  DiGit,
+  DiJava,
 } from "react-icons/di";
-import { SiHtml5 } from "react-icons/si";
+import {
+  SiFirebase,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiRedux,
+} from "react-icons/si";
 
-const Techstack = () => {
+function Techstack() {
   return (
     <Row style={{ justifyContent: "center", paddingBottom: "50px" }}>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiHtml5 />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiCss3 />
-      </Col>
       <Col xs={4} md={2} className="tech-icons">
         <DiJavascript1 />
       </Col>
@@ -32,19 +28,25 @@ const Techstack = () => {
         <DiReact />
       </Col>
       <Col xs={4} md={2} className="tech-icons">
-        <DiMsqlServer />
+        <DiMongodb />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <SiNextdotjs />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <DiGit />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <SiFirebase />
       </Col>
       <Col xs={4} md={2} className="tech-icons">
         <DiJava />
       </Col>
       <Col xs={4} md={2} className="tech-icons">
-        <DiEclipse />
+        <SiTailwindcss />
       </Col>
       <Col xs={4} md={2} className="tech-icons">
-        <DiWindows />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiApple />
+        <SiRedux />
       </Col>
     </Row>
   );
