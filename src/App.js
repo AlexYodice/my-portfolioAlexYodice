@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import Home from './pages/Home'
-import Skill from './pages/Skillset'
+// import Skill from './pages/Skillset'
 import Project from './pages/Projects'
 import Resume from './pages/Resume'
 import Contact from './pages/Contact'

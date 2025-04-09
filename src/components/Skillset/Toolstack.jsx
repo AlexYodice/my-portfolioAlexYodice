@@ -13,7 +13,7 @@ import {
   SiMongodb,
   SiGit
 } from "react-icons/si";
-import { FaCode, FaDatabase } from "react-icons/fa";
+import { FaCode } from "react-icons/fa";
 
 function Toolstack() {
   return (

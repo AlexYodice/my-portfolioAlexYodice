@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Card } from "react-bootstrap";
-import { AiOutlineCode, AiOutlineTrophy } from "react-icons/ai";
+import { AiOutlineCode } from "react-icons/ai";
 
 function LeetCode() {
   const leetCodeUrl = "https://leetcode.com/u/sMGGXEMQGq/";
