@@ -1,2 +1,7 @@
 [build.environment]
-NODE_VERSION = "20" 
+NODE_VERSION = "20"
+CI = "false"
+
+[build]
+command = "npm run build"
+publish = "build" 
