@@ -1,22 +1,20 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import { BiLinkExternal } from "react-icons/bi";
 import { BsGithub } from "react-icons/bs";
+import { CgWebsite } from "react-icons/cg";
 
 function ProjectCard(props) {
   return (
     <Card className="project-card-view">
-      <Card.Img 
-        variant="top" 
-        src={props.imgPath} 
-        alt="card-img"
-        style={{ 
-          width: "100%",
-          height: "auto",
-          objectFit: "cover",
-          borderRadius: "10px"
-        }} 
+      <Card.Img
+        variant="top"
+        src={props.imgPath}
+        alt={props.title}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = "/images/projects/placeholder.png"; // Add a placeholder image
+        }}
       />
       <Card.Body>
         <Card.Title>{props.title}</Card.Title>
@@ -33,7 +31,7 @@ function ProjectCard(props) {
             target="_blank"
             style={{ marginLeft: "10px" }}
           >
-            <BiLinkExternal /> &nbsp;Demo
+            <CgWebsite /> &nbsp;Demo
           </Button>
         )}
       </Card.Body>
