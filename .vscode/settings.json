@@ -1,0 +1,15 @@
+{
+    "sqltools.connections": [
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "db.qarplahyjhdipjjqorfr.supabase.co",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "Supabase (my-portfolio)",
+            "database": "postgres",
+            "username": "postgres"
+        }
+    ]
+}

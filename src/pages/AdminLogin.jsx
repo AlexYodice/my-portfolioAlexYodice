@@ -15,9 +15,9 @@ function AdminLogin() {
   const handleLogin = (e) => {
     e.preventDefault();
     if (username === 'Taylorjmjr1959%' && password === 'Taylorjmjr1959_') {
-      // Navigate to the appropriate admin page based on source
+      // Navigate to admin dashboard with appropriate tab
       if (from === 'resume') {
-        navigate('/resume-admin');
+        navigate('/admin-dashboard', { state: { tab: 'resume' } });
       } else {
         navigate('/admin-dashboard');
       }

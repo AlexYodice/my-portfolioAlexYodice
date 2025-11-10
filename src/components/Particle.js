@@ -12,43 +12,76 @@ function Particle() {
       id="tsparticles"
       init={particlesInit}
       options={{
+        background: {
+          color: {
+            value: "transparent",
+          },
+        },
         particles: {
           number: {
-            value: 160,
+            value: 200,
             density: {
               enable: true,
-              value_area: 1500,
+              value_area: 1200,
+            },
+          },
+          color: {
+            value: "#ffffff",
+          },
+          shape: {
+            type: "circle",
+          },
+          opacity: {
+            value: 0.8,
+            random: true,
+            anim: {
+              enable: true,
+              speed: 1,
+              opacity_min: 0.1,
+              sync: false,
+            },
+          },
+          size: {
+            value: 2,
+            random: true,
+            anim: {
+              enable: true,
+              speed: 2,
+              size_min: 0.5,
+              sync: false,
             },
           },
           line_linked: {
             enable: false,
-            opacity: 0.03,
           },
           move: {
-            direction: "right",
-            speed: 0.05,
-          },
-          size: {
-            value: 1,
-          },
-          opacity: {
-            anim: {
-              enable: true,
-              speed: 1,
-              opacity_min: 0.05,
+            enable: true,
+            speed: 0.3,
+            direction: "none",
+            random: true,
+            straight: false,
+            out_mode: "out",
+            bounce: false,
+            attract: {
+              enable: false,
             },
           },
         },
         interactivity: {
+          detect_on: "canvas",
           events: {
+            onhover: {
+              enable: false,
+            },
             onclick: {
               enable: true,
               mode: "push",
             },
+            resize: true,
           },
           modes: {
             push: {
-              particles_nb: 1,
+              particles_nb: 3,
             },
           },
         },

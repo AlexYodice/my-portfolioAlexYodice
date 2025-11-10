@@ -8,12 +8,9 @@
     color: white
 }
 
+/* .contact-social-links styles moved to global style.css for solar system effect */
 .contact-social-links {
-    justify-content: center !important;
-    padding-top: 15px !important;
-    display: inline-block !important;
-    position: relative !important;
-    padding-inline-start: 0 !important;
+    /* Styles now in style.css for solar system */
   }
 
 .contact-social-icons {
@@ -37,7 +34,7 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: #fa0000;
+    background: #000000;
     transition: 0.5s;
     transform: scale(0.9);
     z-index: -1;
@@ -45,13 +42,13 @@
 
   .contact-social-icons:hover::before {
     transform: scale(1.1);
-    box-shadow: 0 0 15px #fd0251;
+    box-shadow: 0 0 15px #000000;
   }
   
   .contact-social-icons:hover {
-    color: #ff00b7;
-    box-shadow: 0 0 7px #fd0101;
-    text-shadow: 0 0 4px #fc0262;
+    color: #ffffff;
+    box-shadow: 0 0 7px #000000;
+    text-shadow: 0 0 4px #ffffff;
   }
   .contact-icons {
     display: inline-block !important;
@@ -60,5 +57,5 @@
   }
   
   .icon-color {
-    color: #ff0101 !important;
+    color: #ffffff !important;
   } 

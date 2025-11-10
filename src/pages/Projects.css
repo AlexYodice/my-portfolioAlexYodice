@@ -14,15 +14,15 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   color: white;
-  margin-bottom: 20px;
-  text-shadow: 0 0 10px rgba(255, 0, 0, 0.8),
-               0 0 20px rgba(255, 0, 0, 0.8),
-               0 0 30px rgba(255, 0, 0, 0.6),
-               0 0 40px rgba(255, 0, 0, 0.4);
+  margin-bottom: 0;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+               0 0 20px rgba(255, 255, 255, 0.8),
+               0 0 30px rgba(255, 255, 255, 0.6),
+               0 0 40px rgba(255, 255, 255, 0.4);
 }
 
 .projects-title span {
-  color: #ff0000;
+  color: #ffffff;
 }
 
 .projects-subtitle {
@@ -35,27 +35,48 @@
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   padding: 20px;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
 .project-card {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 3px solid #ffffff;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 4px 5px 3px rgba(255, 0, 0, 0.459);
+  box-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.3),
+    0 4px 5px 3px rgba(0, 0, 0, 0.459),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
   transition: all 0.5s ease;
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 400px;
+  position: relative;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+  opacity: 0.5;
 }
 
 .project-card:hover {
   transform: scale(1.02);
-  box-shadow: 0 4px 4px 5px rgba(255, 0, 0, 0.561);
+  border-color: #ffffff;
+  box-shadow: 
+    0 0 20px rgba(255, 255, 255, 0.5),
+    0 4px 4px 5px rgba(0, 0, 0, 0.561),
+    inset 0 0 30px rgba(255, 255, 255, 0.1);
 }
 
 .project-image {
@@ -64,6 +85,10 @@
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 20px;
+  border: 2px solid #ffffff;
+  box-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.3),
+    inset 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 .project-card h2 {
@@ -71,10 +96,12 @@
   font-size: 1.5em;
   margin-bottom: 15px;
   font-weight: bold;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .project-card p {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
   margin-bottom: 20px;
   flex-grow: 1;
@@ -84,24 +111,43 @@
   display: flex;
   gap: 15px;
   margin-top: auto;
+  padding-top: 15px;
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .project-buttons .btn {
   padding: 10px 20px;
-  background-color: #ff0000;
+  background-color: #000000;
   color: white;
   text-decoration: none;
   border-radius: 5px;
   transition: all 0.3s ease;
-  border: none;
+  border: 2px solid #ffffff;
   cursor: pointer;
   font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 
+    0 0 5px rgba(255, 255, 255, 0.3),
+    inset 0 0 10px rgba(255, 255, 255, 0.05);
 }
 
 .project-buttons .btn:hover {
-  background-color: #cc0000;
+  background-color: #1a1a1a;
+  border-color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(255, 0, 0, 0.4);
+  box-shadow: 
+    0 0 15px rgba(255, 255, 255, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    inset 0 0 15px rgba(255, 255, 255, 0.1);
+  color: white;
+  text-decoration: none;
+}
+
+.project-buttons .btn svg {
+  font-size: 18px;
 }
 
 .loading-text {
@@ -112,10 +158,28 @@
   padding: 40px;
 }
 
+/* Medium screens: 3 cards per row */
+@media (max-width: 1200px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
+  }
+}
+
+/* Tablet screens: 2 cards per row */
+@media (max-width: 900px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Mobile screens: 1 card per row */
 @media (max-width: 768px) {
   .projects-grid {
     grid-template-columns: 1fr;
     padding: 10px;
+    gap: 20px;
   }
 
   .projects-title {
@@ -131,6 +195,7 @@
     text-align: center;
   }
 }
+
 
 
 

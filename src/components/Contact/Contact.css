@@ -11,7 +11,7 @@
 .c-left{
     text-align: center !important;
     padding-top: 25px;
-    color: rgb(255, 0, 0) !important;
+    color: rgb(255, 255, 255) !important;
 }
 
 .c-right{
@@ -35,7 +35,7 @@
     height: 3rem;
     padding: 0.3em;
     outline: none;
-    border: 2px solid rgb(255, 0, 0);
+    border: 2px solid rgb(0, 0, 0);
     border-radius: 0px;
     font-size: 19px;
     color: white;
@@ -43,7 +43,7 @@
 }
 
 .c-right .user:hover{
-    box-shadow: 0 0 15px rgb(255, 0, 0);
+    box-shadow: 0 0 15px rgb(0, 0, 0);
 }
 
 input{
@@ -58,11 +58,11 @@ textarea{
 
 .done{
     font-size: 19px;
-    color: rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
 }
 .not-done{
     font-size: 19px;
-    color: red;
+    color: white;
 }
 
 .c-blur1{
@@ -110,7 +110,7 @@ textarea{
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    border: 2px solid rgb(255, 0, 0) !important;
+    border: 2px solid rgb(0, 0, 0) !important;
     background: transparent !important;
     width: 50px !important;
     height: 50px !important;
@@ -132,29 +132,29 @@ textarea{
 
 .contact-social-icons:hover {
     transform: scale(1.1) !important;
-    color: #ff0000 !important;
-    box-shadow: 0 0 15px #ff0000;
+    color: #ffffff !important;
+    box-shadow: 0 0 15px #000000;
 }
 
 .contact-social-icons:hover svg,
 .contact-social-icons:hover i {
-    color: #ff0000 !important;
-    fill: #ff0000 !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
 }
 
 /* Button styling */
 .button {
     padding: 10px 20px !important;
     background: transparent !important;
-    border: 2px solid rgb(255, 0, 0) !important;
+    border: 2px solid rgb(0, 0, 0) !important;
     border-radius: 0 !important;
     color: white !important;
     transition: all 0.3s ease !important;
 }
 
 .button:hover {
-    background: rgba(255, 0, 0, 0.1) !important;
-    box-shadow: 0 0 15px rgb(255, 0, 0) !important;
+    background: rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 0 15px rgb(0, 0, 0) !important;
 }
 
 /* Contact social links container */

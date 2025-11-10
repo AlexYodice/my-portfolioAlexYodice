@@ -17,8 +17,8 @@
 }
 
 .download-button {
-  background-color: #ff0000;
-  border-color: #ff0000;
+  background-color: #000000;
+  border-color: #000000;
   margin-bottom: 30px;
   padding: 0.5rem 1.5rem;
   border-radius: 4px;
@@ -27,10 +27,10 @@
 }
 
 .download-button:hover {
-  background-color: #d60000;
-  border-color: #d60000;
+  background-color: #333333;
+  border-color: #333333;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .resume-pdf-container {

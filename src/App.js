@@ -20,6 +20,7 @@ import Footer from "./components/Footer/Footer";
 import Preloader from "./components/PreLoader"
 import ScrollToTop from "./components/ScrollToTop"
 import Skillset from "./components/Skillset/Skillset";
+import Particle from "./components/Particle";
 
 import "./App.css";
 import "./style.css";
@@ -37,9 +38,15 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <Router
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true
+      }}
+    >
       <Preloader load={load} />
       <div className="App" id={load ? "no-scroll" : "scroll"}>
+        <Particle />
         <Navbar />
         <ScrollToTop />
         <Routes>

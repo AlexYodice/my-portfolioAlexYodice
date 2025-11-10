@@ -20,42 +20,46 @@ const Social = () => {
                 </p>
                 </div>
                 <ul className="contact-social-links">
-                  <li className="contact-icons">
+                  <li className="social-icons">
                     <a
                       href="https://github.com/Alexyodice"
                       target="_blank"
                       rel="noreferrer"
-                      className="icon-color  contact-social-icons"
+                      className="icon-colour home-social-icons"
+                      aria-label="github"
                     >
                       <AiFillGithub />
                     </a>
                   </li>
-                  <li className="contact-icons">
+                  <li className="social-icons">
                     <a
                       href="https://x.com/yodic1"
                       target="_blank"
                       rel="noreferrer"
-                      className="icon-color  contact-social-icons"
+                      className="icon-colour home-social-icons"
+                      aria-label="twitter"
                     >
                       <AiOutlineTwitter />
                     </a>
                   </li>
-                  <li className="contact-icons">
+                  <li className="social-icons">
                     <a
                       href="https://www.linkedin.com/in/alexander-yodice-434595235"
                       target="_blank"
                       rel="noreferrer"
-                      className="icon-color  contact-social-icons"
+                      className="icon-colour home-social-icons"
+                      aria-label="linkedin"
                     >
                       <FaLinkedinIn />
                     </a>
                   </li>
-                  <li className="contact-icons">
+                  <li className="social-icons">
                     <a
-                      href="https://leetcode.com/alexandersay"
+                      href="https://leetcode.com/u/Taylorjmjr1959_"
                       target="_blank"
                       rel="noreferrer"
-                      className="icon-color contact-social-icons"
+                      className="icon-colour home-social-icons"
+                      aria-label="leetcode"
                     >
                       <SiLeetcode />
                     </a>
