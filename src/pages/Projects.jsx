@@ -1,14 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../supabaseClient';
+import { supabase, isSupabaseConfigured } from '../supabaseClient';
 import { BsGithub } from 'react-icons/bs';
 import { CgWebsite } from 'react-icons/cg';
 import { FaCog } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Projects.css';
 
+// Fallback projects that will always be visible
+const FALLBACK_PROJECTS = [
+  {
+    id: 'fallback-1',
+    title: 'First Portfolio Website',
+    description: 'My first portfolio website built with HTML, CSS, and JavaScript. Features a responsive design, multiple sections including about, portfolio, and contact. Includes interactive elements and smooth animations.',
+    github_url: 'https://github.com/alexyodice/portfolio-website',
+    live_url: 'https://alexyodice.github.io/portfolio-website',
+    image_url: '/images/projects/portfolio-website.png'
+  },
+  {
+    id: 'fallback-2',
+    title: 'Game of Thrones Chess',
+    description: 'A chess game inspired by Game of Thrones, built with JavaScript. Features themed chess pieces, interactive game board, and visual animations. Follows traditional chess rules with a Westeros-inspired design.',
+    github_url: 'https://github.com/alexyodice/got-chess',
+    live_url: null,
+    image_url: '/images/projects/got-chess.png'
+  },
+  {
+    id: 'fallback-3',
+    title: 'DAW DEVELOPMENT',
+    description: 'DAW Development 🎵 💻 A cross-platform Digital Audio Workstation (DAW) built with Electron, React, and the WebAudio API for real-time music production.',
+    github_url: 'https://github.com/alexyodice/daw-development',
+    live_url: null,
+    image_url: '/images/projects/daw-development.png'
+  }
+];
+
 const Projects = () => {
   const navigate = useNavigate();
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState(FALLBACK_PROJECTS);
   const [loading, setLoading] = useState(true);
 
   const handleSettingsClick = () => {
@@ -18,6 +46,13 @@ const Projects = () => {
 
   useEffect(() => {
     const fetchProjects = async () => {
+      // If Supabase is not configured, skip fetching and use fallback projects
+      if (!isSupabaseConfigured) {
+        setProjects(FALLBACK_PROJECTS);
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
         const { data, error } = await supabase
@@ -26,14 +61,23 @@ const Projects = () => {
           .order('created_at', { ascending: true });
         
         if (error) {
-          console.error('Error fetching projects:', error);
-          setProjects([]);
+          // Only log errors in development
+          if (process.env.NODE_ENV === 'development') {
+            console.error('Error fetching projects:', error);
+          }
+          // Keep fallback projects if there's an error
+          setProjects(FALLBACK_PROJECTS);
         } else {
-          setProjects(data || []);
+          // If we have data from Supabase, use it; otherwise use fallback
+          setProjects(data && data.length > 0 ? data : FALLBACK_PROJECTS);
         }
       } catch (err) {
-        console.error('Error:', err);
-        setProjects([]);
+        // Only log errors in development
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Error:', err);
+        }
+        // Keep fallback projects if there's an error
+        setProjects(FALLBACK_PROJECTS);
       } finally {
         setLoading(false);
       }
@@ -61,7 +105,7 @@ const Projects = () => {
       <div className="projects-grid">
         {loading ? (
           <p className="loading-text">Loading projects...</p>
-        ) : projects.length > 0 ? (
+        ) : (
           projects.map((project) => (
             <div className="project-card" key={project.id}>
               {project.image_url && (
@@ -101,8 +145,6 @@ const Projects = () => {
               </div>
             </div>
           ))
-        ) : (
-          <p className="loading-text">No projects to display yet. Check back soon!</p>
         )}
       </div>
     </section>

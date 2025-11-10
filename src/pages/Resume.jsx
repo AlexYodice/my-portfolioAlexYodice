@@ -4,7 +4,7 @@ import { AiOutlineDownload } from "react-icons/ai";
 import { FaCog } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Particle from '../components/Particle';
-import { supabase } from '../supabaseClient';
+import { supabase, isSupabaseConfigured } from '../supabaseClient';
 // Fallback resume if database is empty
 import resumePDF from "../assets/projects/Updated_Yodice_Alexander_Resume_November2023.pdf";
 
@@ -18,6 +18,13 @@ const Resume = () => {
   }, []);
 
   const fetchResume = async () => {
+    // If Supabase is not configured, use fallback resume immediately
+    if (!isSupabaseConfigured) {
+      setResumeUrl(resumePDF);
+      setLoading(false);
+      return;
+    }
+
     try {
       const { data, error } = await supabase
         .from('resume')
@@ -34,7 +41,10 @@ const Resume = () => {
         setResumeUrl(resumePDF);
       }
     } catch (err) {
-      console.error('Error fetching resume:', err);
+      // Only log errors in development
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error fetching resume:', err);
+      }
       // Fallback to local file on error
       setResumeUrl(resumePDF);
     } finally {

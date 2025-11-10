@@ -6,7 +6,7 @@ import {
 } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
-import { supabase } from "../../supabaseClient";
+import { supabase, isSupabaseConfigured } from "../../supabaseClient";
 
 const About = () => {
   const [bioText, setBioText] = useState('');
@@ -21,6 +21,37 @@ const About = () => {
   }, []);
 
   const fetchBio = async () => {
+    // Default fallback bio
+    const defaultBio = `I'm Alex, a <span class="yellow">5th year Computer Engineer student </span>
+from <span class="yellow"> Puerto Rico.</span>
+<br />
+<br />
+I'm graduating soon and have experience in full-stack development, with a focus on web technologies and projects involving <b class="yellow">HTML, CSS, JavaScript</b> and <b class="yellow">Google Maps API.</b>
+<br />
+<br />
+I am proficient in 
+<b class="yellow"> JavaScript </b> and have a solid foundation in languages like C, Python, SQL,
+<b class="yellow"> GraphQL, and more.</b>
+<br />
+<br />
+I enjoy working with
+<b class="yellow"> Node.js, React.js,</b> and backend technologies like
+<b class="yellow"> MongoDB.</b> 
+<br />
+<br />
+I'm also passionate about <b class="yellow">web development, artificial intelligence,</b>
+and continuously learning to expand my skillset.
+<br />
+<br />
+In my spare time, I enjoy practicing coding challenges on <b class="yellow">LeetCode</b> and working on projects that push me out of my comfort zone.`;
+
+    // If Supabase is not configured, use fallback bio immediately
+    if (!isSupabaseConfigured) {
+      setBioText(defaultBio);
+      setLoading(false);
+      return;
+    }
+
     try {
       const { data, error } = await supabase
         .from('profile')
@@ -34,54 +65,15 @@ const About = () => {
         setBioText(data[0].bio_text);
       } else {
         // Fallback to default bio if database is empty
-        setBioText(`I'm Alex, a <span class="yellow">5th year Computer Engineer student </span>
-from <span class="yellow"> Puerto Rico.</span>
-<br />
-<br />
-I'm graduating soon and have experience in full-stack development, with a focus on web technologies and projects involving <b class="yellow">HTML, CSS, JavaScript</b> and <b class="yellow">Google Maps API.</b>
-<br />
-<br />
-I am proficient in 
-<b class="yellow"> JavaScript </b> and have a solid foundation in languages like C, Python, SQL,
-<b class="yellow"> GraphQL, and more.</b>
-<br />
-<br />
-I enjoy working with
-<b class="yellow"> Node.js, React.js,</b> and backend technologies like
-<b class="yellow"> MongoDB.</b> 
-<br />
-<br />
-I'm also passionate about <b class="yellow">web development, artificial intelligence,</b>
-and continuously learning to expand my skillset.
-<br />
-<br />
-In my spare time, I enjoy practicing coding challenges on <b class="yellow">LeetCode</b> and working on projects that push me out of my comfort zone.`);
+        setBioText(defaultBio);
       }
     } catch (err) {
-      console.error('Error fetching bio:', err);
+      // Only log errors in development
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error fetching bio:', err);
+      }
       // Fallback to default bio on error
-      setBioText(`I'm Alex, a <span class="yellow">5th year Computer Engineer student </span>
-from <span class="yellow"> Puerto Rico.</span>
-<br />
-<br />
-I'm graduating soon and have experience in full-stack development, with a focus on web technologies and projects involving <b class="yellow">HTML, CSS, JavaScript</b> and <b class="yellow">Google Maps API.</b>
-<br />
-<br />
-I am proficient in 
-<b class="yellow"> JavaScript </b> and have a solid foundation in languages like C, Python, SQL,
-<b class="yellow"> GraphQL, and more.</b>
-<br />
-<br />
-I enjoy working with
-<b class="yellow"> Node.js, React.js,</b> and backend technologies like
-<b class="yellow"> MongoDB.</b> 
-<br />
-<br />
-I'm also passionate about <b class="yellow">web development, artificial intelligence,</b>
-and continuously learning to expand my skillset.
-<br />
-<br />
-In my spare time, I enjoy practicing coding challenges on <b class="yellow">LeetCode</b> and working on projects that push me out of my comfort zone.`);
+      setBioText(defaultBio);
     } finally {
       setLoading(false);
     }
