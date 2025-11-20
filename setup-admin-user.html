@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin User Setup Helper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background: #333;
+            color: #fff;
+            font-size: 16px;
+        }
+        button {
+            background: #dc3545;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #c82333;
+        }
+        .output {
+            margin-top: 30px;
+            padding: 20px;
+            background: #1a1a1a;
+            border-radius: 5px;
+            border: 1px solid #555;
+        }
+        .output h3 {
+            margin-top: 0;
+            color: #28a745;
+        }
+        pre {
+            background: #0a0a0a;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #555;
+        }
+        .copy-btn {
+            background: #28a745;
+            margin-top: 10px;
+        }
+        .copy-btn:hover {
+            background: #218838;
+        }
+        .info {
+            background: #1e3a5f;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Admin User Setup Helper</h1>
+        
+        <div class="info">
+            <strong>Instructions:</strong><br>
+            1. Enter your desired username and password below<br>
+            2. Click "Generate SQL" to create the password hash<br>
+            3. Copy the SQL statement and run it in Supabase SQL Editor
+        </div>
+
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Enter username" value="Taylorjmjr1959%">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter password" value="Taylorjmjr1959_">
+        </div>
+
+        <button onclick="generateSQL()">Generate SQL</button>
+        <button onclick="clearOutput()" style="background: #6c757d;">Clear</button>
+
+        <div id="output" class="output" style="display: none;">
+            <h3>✅ Generated SQL Statement</h3>
+            <p>Copy this SQL and run it in Supabase SQL Editor:</p>
+            <pre id="sqlOutput"></pre>
+            <button class="copy-btn" onclick="copySQL()">Copy SQL to Clipboard</button>
+            
+            <h3 style="margin-top: 30px;">📋 Details</h3>
+            <pre id="detailsOutput"></pre>
+        </div>
+    </div>
+
+    <script>
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
+        async function generateSQL() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (!username || !password) {
+                alert('Please enter both username and password');
+                return;
+            }
+
+            try {
+                const hash = await hashPassword(password);
+                
+                const sql = `INSERT INTO admin_users (username, password_hash) 
+VALUES ('${username}', '${hash}');`;
+
+                const details = `Username: ${username}
+Password: ${'*'.repeat(password.length)}
+Password Hash: ${hash}
+Generated: ${new Date().toLocaleString()}`;
+
+                document.getElementById('sqlOutput').textContent = sql;
+                document.getElementById('detailsOutput').textContent = details;
+                document.getElementById('output').style.display = 'block';
+            } catch (error) {
+                alert('Error generating hash: ' + error.message);
+                console.error(error);
+            }
+        }
+
+        function copySQL() {
+            const sql = document.getElementById('sqlOutput').textContent;
+            navigator.clipboard.writeText(sql).then(() => {
+                alert('SQL copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('Failed to copy. Please select and copy manually.');
+            });
+        }
+
+        function clearOutput() {
+            document.getElementById('output').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+    </script>
+</body>
+</html>
+
+
+

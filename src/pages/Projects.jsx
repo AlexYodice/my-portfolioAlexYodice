@@ -1,43 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { supabase, isSupabaseConfigured } from '../supabaseClient';
+import { supabase } from '../supabaseClient';
 import { BsGithub } from 'react-icons/bs';
 import { CgWebsite } from 'react-icons/cg';
 import { FaCog } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Projects.css';
 
-// Fallback projects that will always be visible
-const FALLBACK_PROJECTS = [
-  {
-    id: 'fallback-1',
-    title: 'First Portfolio Website',
-    description: 'My first portfolio website built with HTML, CSS, and JavaScript. Features a responsive design, multiple sections including about, portfolio, and contact. Includes interactive elements and smooth animations.',
-    github_url: 'https://github.com/alexyodice/portfolio-website',
-    live_url: 'https://alexyodice.github.io/portfolio-website',
-    image_url: '/images/projects/portfolio-website.png'
-  },
-  {
-    id: 'fallback-2',
-    title: 'Game of Thrones Chess',
-    description: 'A chess game inspired by Game of Thrones, built with JavaScript. Features themed chess pieces, interactive game board, and visual animations. Follows traditional chess rules with a Westeros-inspired design.',
-    github_url: 'https://github.com/alexyodice/got-chess',
-    live_url: null,
-    image_url: '/images/projects/got-chess.png'
-  },
-  {
-    id: 'fallback-3',
-    title: 'DAW DEVELOPMENT',
-    description: 'DAW Development 🎵 💻 A cross-platform Digital Audio Workstation (DAW) built with Electron, React, and the WebAudio API for real-time music production.',
-    github_url: 'https://github.com/alexyodice/daw-development',
-    live_url: null,
-    image_url: '/images/projects/daw-development.png'
-  }
-];
+// 100% DYNAMIC - NO STATIC DATA
+// Everything comes from Supabase database
 
 const Projects = () => {
   const navigate = useNavigate();
-  const [projects, setProjects] = useState(FALLBACK_PROJECTS);
+  const [projects, setProjects] = useState([]); // 100% dynamic - only from database
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const handleSettingsClick = () => {
     console.log("Projects settings clicked");
@@ -46,38 +22,26 @@ const Projects = () => {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      // If Supabase is not configured, skip fetching and use fallback projects
-      if (!isSupabaseConfigured) {
-        setProjects(FALLBACK_PROJECTS);
-        setLoading(false);
-        return;
-      }
-
+      // 100% DYNAMIC - Only fetch from database, no fallbacks
       try {
         setLoading(true);
         const { data, error } = await supabase
           .from('projects')
           .select('*')
-          .order('created_at', { ascending: true });
+          .order('created_at', { ascending: false }); // Newest first
         
         if (error) {
-          // Only log errors in development
-          if (process.env.NODE_ENV === 'development') {
-            console.error('Error fetching projects:', error);
-          }
-          // Keep fallback projects if there's an error
-          setProjects(FALLBACK_PROJECTS);
+          console.error('Error fetching projects:', error);
+          setError('Failed to load projects. Please check your database connection.');
+          setProjects([]);
         } else {
-          // If we have data from Supabase, use it; otherwise use fallback
-          setProjects(data && data.length > 0 ? data : FALLBACK_PROJECTS);
+          // Show whatever is in the database - could be empty, that's fine!
+          setProjects(data || []);
         }
       } catch (err) {
-        // Only log errors in development
-        if (process.env.NODE_ENV === 'development') {
-          console.error('Error:', err);
-        }
-        // Keep fallback projects if there's an error
-        setProjects(FALLBACK_PROJECTS);
+        console.error('Error:', err);
+        setError('Failed to load projects.');
+        setProjects([]);
       } finally {
         setLoading(false);
       }
@@ -105,6 +69,20 @@ const Projects = () => {
       <div className="projects-grid">
         {loading ? (
           <p className="loading-text">Loading projects...</p>
+        ) : error ? (
+          <div className="error-message" style={{ color: '#dc3545', textAlign: 'center', padding: '20px' }}>
+            <p>{error}</p>
+            <p style={{ fontSize: '14px', marginTop: '10px' }}>
+              Go to <a href="/admin-login" style={{ color: '#fff' }}>Admin Dashboard</a> to add projects.
+            </p>
+          </div>
+        ) : projects.length === 0 ? (
+          <div className="empty-state" style={{ color: '#fff', textAlign: 'center', padding: '40px' }}>
+            <p style={{ fontSize: '18px', marginBottom: '10px' }}>No projects yet.</p>
+            <p style={{ fontSize: '14px', opacity: 0.8 }}>
+              <a href="/admin-login" style={{ color: '#dc3545' }}>Go to Admin Dashboard</a> to add your first project.
+            </p>
+          </div>
         ) : (
           projects.map((project) => (
             <div className="project-card" key={project.id}>
@@ -114,6 +92,7 @@ const Projects = () => {
                   alt={project.title} 
                   className="project-image"
                   onError={(e) => {
+                    // If Supabase Storage image fails to load, show placeholder
                     e.target.onerror = null;
                     e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23ddd" width="400" height="300"/%3E%3Ctext fill="%23999" font-family="sans-serif" font-size="18" dy="10.5" font-weight="bold" x="50%25" y="50%25" text-anchor="middle" %3ENo Image%3C/text%3E%3C/svg%3E';
                   }}

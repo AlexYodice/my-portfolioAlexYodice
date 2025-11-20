@@ -84,3 +84,21 @@ on resume for delete
 to public
 using (true);
 
+-- ============================================
+-- RLS Policies for Admin Users Table
+-- ============================================
+
+-- Enable RLS on admin_users table
+alter table admin_users enable row level security;
+
+-- Allow public to read admin_users (needed for login verification)
+-- This is safe because we only store hashed passwords
+create policy "Public read access for login"
+on admin_users for select
+to public
+using (true);
+
+-- Note: We don't allow public insert/update/delete for security
+-- Admin users should be managed directly in Supabase dashboard
+-- or through a separate admin management interface
+
