@@ -28,7 +28,7 @@ const Projects = () => {
         const { data, error } = await supabase
           .from('projects')
           .select('*')
-          .order('created_at', { ascending: false }); // Newest first
+          .order('created_at', { ascending: true }); // Oldest first
         
         if (error) {
           console.error('Error fetching projects:', error);
