@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Admin Password Hash</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        h1 { color: #dc3545; }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #555;
+            background: #333;
+            color: #fff;
+        }
+        button {
+            background: #dc3545;
+            cursor: pointer;
+        }
+        button:hover { background: #c82333; }
+        pre {
+            background: #0a0a0a;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .output { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Generate Admin Password Hash</h1>
+        <p>Enter your admin credentials to generate the SQL INSERT statement:</p>
+        
+        <label>Username:</label>
+        <input type="text" id="username" value="al3x" placeholder="Enter username">
+        
+        <label>Password:</label>
+        <input type="password" id="password" value="Taylorjmjr1959" placeholder="Enter password">
+        
+        <button onclick="generateHash()">Generate SQL</button>
+        
+        <div id="output" class="output" style="display: none;">
+            <h3>✅ Copy this SQL and run it in Supabase:</h3>
+            <pre id="sqlOutput"></pre>
+            <button onclick="copySQL()" style="background: #28a745;">Copy SQL</button>
+        </div>
+    </div>
+
+    <script>
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
+        async function generateHash() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (!username || !password) {
+                alert('Please enter both username and password');
+                return;
+            }
+
+            try {
+                const hash = await hashPassword(password);
+                const sql = `INSERT INTO admin_users (username, password_hash) VALUES ('${username}', '${hash}');`;
+                
+                document.getElementById('sqlOutput').textContent = sql;
+                document.getElementById('output').style.display = 'block';
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        function copySQL() {
+            const sql = document.getElementById('sqlOutput').textContent;
+            navigator.clipboard.writeText(sql).then(() => {
+                alert('SQL copied to clipboard!');
+            }).catch(() => {
+                alert('Failed to copy. Please select and copy manually.');
+            });
+        }
+    </script>
+</body>
+</html>
+

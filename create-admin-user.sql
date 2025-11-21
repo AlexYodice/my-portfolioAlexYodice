@@ -1,0 +1,29 @@
+-- ============================================
+-- CREATE ADMIN USER
+-- ============================================
+-- Run this AFTER creating the admin_users table
+-- 
+-- This will create a user with:
+-- Username: Taylorjmjr1959%
+-- Password: Taylorjmjr1959_
+--
+-- To generate the password hash, run this in browser console:
+-- 
+-- async function hashPassword(password) {
+--   const encoder = new TextEncoder();
+--   const data = encoder.encode(password);
+--   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+--   const hashArray = Array.from(new Uint8Array(hashBuffer));
+--   const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+--   return hashHex;
+-- }
+-- hashPassword('Taylorjmjr1959_').then(hash => {
+--   console.log(`INSERT INTO admin_users (username, password_hash) VALUES ('Taylorjmjr1959%', '${hash}');`);
+-- });
+--
+-- Then copy the INSERT statement from console and run it here
+-- ============================================
+
+-- REPLACE THE HASH BELOW WITH THE ONE FROM BROWSER CONSOLE:
+-- INSERT INTO admin_users (username, password_hash) VALUES ('Taylorjmjr1959%', 'YOUR_HASH_HERE');
+
