@@ -15,6 +15,13 @@ const Resume = () => {
 
   useEffect(() => {
     fetchResume();
+    // Refresh resume every 30 seconds to catch updates
+    const interval = setInterval(() => {
+      console.log('🔄 Refreshing resume...');
+      fetchResume();
+    }, 30000);
+    
+    return () => clearInterval(interval);
   }, []);
 
   const fetchResume = async () => {
@@ -100,7 +107,7 @@ const Resume = () => {
               </div>
             ) : (
               <>
-                <div style={{ textAlign: "center", marginBottom: "20px" }}>
+                <div style={{ textAlign: "center", marginBottom: "20px", display: "flex", gap: "10px", justifyContent: "center" }}>
                   <Button
                     variant="primary"
                     href={resumeUrl}
@@ -111,14 +118,35 @@ const Resume = () => {
                     <AiOutlineDownload />
                     &nbsp;Download Resume
                   </Button>
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      console.log('🔄 Manual refresh triggered');
+                      setLoading(true);
+                      fetchResume();
+                    }}
+                    style={{ maxWidth: "200px" }}
+                  >
+                    🔄 Refresh
+                  </Button>
                 </div>
                 <div style={{ textAlign: "center" }}>
                   <iframe
-                    src={`${resumeUrl}#toolbar=0&navpanes=0`}
+                    key={`${resumeUrl}-${Date.now()}`} // Force re-render with timestamp
+                    src={`${resumeUrl}?t=${Date.now()}#toolbar=0&navpanes=0`}
                     title="Alexander Yodice Resume"
                     width="100%"
                     height="800px"
                     style={{ border: "none", borderRadius: "5px" }}
+                    onLoad={() => {
+                      console.log('✅ Resume iframe loaded successfully');
+                      console.log('📄 URL:', resumeUrl);
+                    }}
+                    onError={(e) => {
+                      console.error('❌ Resume iframe failed to load');
+                      console.error('Error:', e);
+                      console.error('URL:', resumeUrl);
+                    }}
                   />
                 </div>
               </>
