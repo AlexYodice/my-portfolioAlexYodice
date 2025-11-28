@@ -132,12 +132,13 @@ const Resume = () => {
                 </div>
                 <div style={{ textAlign: "center" }}>
                   <iframe
-                    key={`${resumeUrl}-${Date.now()}`} // Force re-render with timestamp
-                    src={`${resumeUrl}?t=${Date.now()}#toolbar=0&navpanes=0`}
+                    key={`resume-${resumeUrl}-${Math.random()}`} // Force complete re-render
+                    src={`${resumeUrl}?nocache=${Date.now()}&v=${Math.random()}#toolbar=0&navpanes=0`}
                     title="Alexander Yodice Resume"
                     width="100%"
                     height="800px"
                     style={{ border: "none", borderRadius: "5px" }}
+                    allow="fullscreen"
                     onLoad={() => {
                       console.log('✅ Resume iframe loaded successfully');
                       console.log('📄 URL:', resumeUrl);
