@@ -46,7 +46,7 @@ function AdminLogin() {
           // No rows returned
           setError('Invalid credentials');
         } else {
-          console.error('Database error:', queryError);
+          console.error('Database error:', queryError.message || queryError);
           setError('Login failed. Please try again.');
         }
         setLoading(false);
