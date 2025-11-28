@@ -20,31 +20,45 @@ const Resume = () => {
   const fetchResume = async () => {
     // If Supabase is not configured, use fallback resume immediately
     if (!isSupabaseConfigured) {
+      console.log('⚠️ Supabase not configured, using fallback resume');
       setResumeUrl(resumePDF);
       setLoading(false);
       return;
     }
 
     try {
+      console.log('📄 Fetching resume from database...');
       const { data, error } = await supabase
         .from('resume')
-        .select('file_url')
+        .select('file_url, file_name, updated_at')
         .order('updated_at', { ascending: false })
         .limit(1);
       
-      if (error) throw error;
+      if (error) {
+        console.error('❌ Database error:', error);
+        throw error;
+      }
+      
+      console.log('📊 Resume query result:', data);
       
       if (data && data.length > 0 && data[0].file_url) {
+        console.log('✅ Found resume in database:', data[0].file_url);
+        console.log('📝 File name:', data[0].file_name);
+        console.log('🕒 Last updated:', data[0].updated_at);
         setResumeUrl(data[0].file_url);
       } else {
+        console.warn('⚠️ No resume found in database, using fallback');
         // Fallback to local file if database is empty
         setResumeUrl(resumePDF);
       }
     } catch (err) {
-      // Only log errors in development
-      if (process.env.NODE_ENV === 'development') {
-        console.error('Error fetching resume:', err);
-      }
+      console.error('❌ Error fetching resume:', err);
+      console.error('Error details:', {
+        message: err.message,
+        code: err.code,
+        details: err.details,
+        hint: err.hint
+      });
       // Fallback to local file on error
       setResumeUrl(resumePDF);
     } finally {
